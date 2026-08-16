@@ -45,3 +45,6 @@ C:\Users\admin\source\repos\Homework1\Homework1\obj\Debug\net10.0\ref\Homework1.
 C:\Users\admin\source\repos\Homework1\Homework1\bin\Debug\net10.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\admin\source\repos\Homework1\Homework1\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\admin\source\repos\Homework1\Homework1\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\admin\source\repos\Homework1\Homework1\obj\Debug\net10.0\Homework1.sourcelink.json
+C:\Users\admin\source\repos\Homework1\Homework1\bin\Debug\net10.0\Dapper.dll
+C:\Users\admin\source\repos\Homework1\Homework1\bin\Debug\net10.0\Npgsql.dll

@@ -2,7 +2,10 @@ using System.Text;
 using Homework1.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-
+using Homework1.DL;
+using Homework1.DL.Interfaces;
+using Homework1.BL;
+using Homework1.BL.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -13,7 +16,8 @@ builder.Services.AddOpenApi();
 builder.Services.AddScoped<JwtService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddScoped<IUserDL, UserDL>();
+builder.Services.AddScoped<IAuthBL, AuthBL>();
 // Configure JWT authentication using the same builder
 var jwtKey = builder.Configuration["Jwt:Key"];
 if (string.IsNullOrEmpty(jwtKey))

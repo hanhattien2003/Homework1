@@ -20,7 +20,7 @@ namespace Homework1.Services
             {
         new Claim(
             ClaimTypes.NameIdentifier,
-            user.Id.ToString()
+            user.User_id.ToString()
         ),
 
         new Claim(
