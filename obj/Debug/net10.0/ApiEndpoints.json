@@ -1,5 +1,15 @@
 [
   {
+    "ContainingType": "Homework1.Controller.AdminController",
+    "Method": "Dashboard",
+    "RelativePath": "api/Admin/dashboard",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Homework1.Controller.AuthController",
     "Method": "Login",
     "RelativePath": "api/Auth/login",
@@ -9,10 +19,20 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Homework1.DTOs.LoginRequest",
+        "Type": "Homework1.Models.EncryptedRequest",
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Homework1.Controller.SecurityController",
+    "Method": "GetPublicKey",
+    "RelativePath": "api/security/public-key",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   }
 ]

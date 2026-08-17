@@ -35,7 +35,6 @@ C:\Users\admin\source\repos\Homework1\Homework1\obj\Debug\net10.0\staticwebasset
 C:\Users\admin\source\repos\Homework1\Homework1\obj\Debug\net10.0\staticwebassets.development.json
 C:\Users\admin\source\repos\Homework1\Homework1\obj\Debug\net10.0\staticwebassets.build.endpoints.json
 C:\Users\admin\source\repos\Homework1\Homework1\obj\Debug\net10.0\swae.build.ex.cache
-C:\Users\admin\source\repos\Homework1\Homework1\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
 C:\Users\admin\source\repos\Homework1\Homework1\obj\Debug\net10.0\Homework1.csproj.Up2Date
 C:\Users\admin\source\repos\Homework1\Homework1\obj\Debug\net10.0\Homework1.dll
 C:\Users\admin\source\repos\Homework1\Homework1\obj\Debug\net10.0\refint\Homework1.dll

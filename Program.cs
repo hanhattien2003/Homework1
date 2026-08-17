@@ -16,36 +16,111 @@ builder.Services.AddOpenApi();
 builder.Services.AddScoped<JwtService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<KeyService>();
+builder.Services.AddScoped<EncryptionService>();
 builder.Services.AddScoped<IUserDL, UserDL>();
 builder.Services.AddScoped<IAuthBL, AuthBL>();
-// Configure JWT authentication using the same builder
-var jwtKey = builder.Configuration["Jwt:Key"];
-if (string.IsNullOrEmpty(jwtKey))
+builder.Services.AddCors(options =>
 {
-    throw new InvalidOperationException("JWT:Key is not configured in appsettings.");
-}
+    options.AddPolicy("AllowVueApp",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:5173")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials();
+        });
+});
+// Configure JWT authentication using the same builder
 
+var signingKeyText =
+    builder.Configuration["Jwt:SigningKey"]
+    ?? throw new Exception("Thiếu Jwt:SigningKey");
+
+var encryptionKeyText =
+    builder.Configuration["Jwt:EncryptionKey"]
+    ?? throw new Exception("Thiếu Jwt:EncryptionKey");
+
+
+var signingKey =
+    new SymmetricSecurityKey(
+        Encoding.UTF8.GetBytes(signingKeyText)
+    );
+
+var encryptionKey =
+    new SymmetricSecurityKey(
+        Encoding.UTF8.GetBytes(encryptionKeyText)
+    );
 builder.Services
-    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddAuthentication(
+        JwtBearerDefaults.AuthenticationScheme
+    )
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters =
             new TokenValidationParameters
             {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
+                // ============================
+                // KIỂM TRA CHỮ KÝ
+                // ============================
+
                 ValidateIssuerSigningKey = true,
-                ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                ValidAudience = builder.Configuration["Jwt:Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+
+                IssuerSigningKey =
+                    signingKey,
+
+
+                // ============================
+                // GIẢI MÃ JWE
+                // ============================
+
+                TokenDecryptionKey =
+                    encryptionKey,
+
+
+                // ============================
+                // KIỂM TRA ISSUER
+                // ============================
+
+                ValidateIssuer = true,
+
+                ValidIssuer =
+                    builder.Configuration["Jwt:Issuer"],
+
+
+                // ============================
+                // KIỂM TRA AUDIENCE
+                // ============================
+
+                ValidateAudience = true,
+
+                ValidAudience =
+                    builder.Configuration["Jwt:Audience"],
+
+
+                // ============================
+                // KIỂM TRA EXPIRATION
+                // ============================
+
+                ValidateLifetime = true,
+
+
+                // ============================
+                // QUAN TRỌNG CHO PHÂN QUYỀN
+                // ============================
+
+                RoleClaimType =
+                    System.Security.Claims.ClaimTypes.Role,
+
+                NameClaimType =
+                    System.Security.Claims.ClaimTypes.Name
             };
     });
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-
+app.UseCors("AllowVueApp");
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {

@@ -5,6 +5,18 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/Admin/dashboard": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Auth/login": {
       "post": {
         "tags": [
@@ -14,17 +26,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LoginRequest"
+                "$ref": "#/components/schemas/EncryptedRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/LoginRequest"
+                "$ref": "#/components/schemas/EncryptedRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/LoginRequest"
+                "$ref": "#/components/schemas/EncryptedRequest"
               }
             }
           }
@@ -35,18 +47,34 @@
           }
         }
       }
+    },
+    "/api/security/public-key": {
+      "get": {
+        "tags": [
+          "Security"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
-      "LoginRequest": {
+      "EncryptedRequest": {
         "type": "object",
         "properties": {
-          "username": {
+          "encryptedKey": {
             "type": "string",
             "nullable": true
           },
-          "password": {
+          "iv": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
             "type": "string",
             "nullable": true
           }
@@ -57,7 +85,13 @@
   },
   "tags": [
     {
+      "name": "Admin"
+    },
+    {
       "name": "Auth"
+    },
+    {
+      "name": "Security"
     }
   ]
 }
